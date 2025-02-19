@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\admin\ProductController;
-use App\Http\Controllers\admin\UserController;
-use App\Http\Controllers\DashbordController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashbordController;
+use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\admin\ProductController;
 
 Route::get('/', function () {
     return view('welcome');
 });
-Route::group(['prefix' => 'dashbord'], function () {
+Route::group(['prefix' => 'dashbord', 'middleware' => 'auth'], function () {
     Route::get('/', [DashbordController::class, 'index']);
 
     Route::group(['prefix' => 'Products', 'as' => 'product.'], function () {
